@@ -1,16 +1,17 @@
 package com.backend.clasesya.controller;
 
-import com.backend.clasesya.dto.horario.HorarioCreateDTO;
-import com.backend.clasesya.dto.horario.HorarioResponseDTO;
+import com.backend.clasesya.dto.horario.HorarioConProfesorDTO;
 import com.backend.clasesya.service.IHorarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/profesor/{profesorId}/horario")
+@RequestMapping("/api/horarios")
 public class HorarioController {
     private final IHorarioService service;
 
@@ -18,19 +19,10 @@ public class HorarioController {
         this.service = service;
     }
 
+
     @GetMapping
-    public ResponseEntity<List<HorarioResponseDTO>> listByProfesor(
-            @PathVariable Long profesorId
-    ) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAllByProfesor(profesorId));
+    public ResponseEntity<List<HorarioConProfesorDTO>> listAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
-    @PostMapping
-    public ResponseEntity<HorarioResponseDTO> create(
-            @RequestBody HorarioCreateDTO horarioDto,
-            @PathVariable Long profesorId
-    ) {
-        HorarioResponseDTO response = service.create(horarioDto, profesorId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
 }

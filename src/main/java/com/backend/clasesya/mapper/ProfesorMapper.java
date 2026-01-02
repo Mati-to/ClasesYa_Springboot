@@ -1,6 +1,7 @@
 package com.backend.clasesya.mapper;
 
 import com.backend.clasesya.dto.profesor.ProfesorCreateDTO;
+import com.backend.clasesya.dto.profesor.ProfesorHorarioResponseDTO;
 import com.backend.clasesya.dto.profesor.ProfesorResponseDTO;
 import com.backend.clasesya.dto.profesor.ProfesorUpdateDTO;
 import com.backend.clasesya.entity.Profesor;
@@ -28,6 +29,14 @@ public class ProfesorMapper {
         dto.setCorreo(profesor.getCorreo());
         dto.setProfesion(profesor.getProfesion());
         dto.setFechaRegistro(profesor.getFechaRegistro());
+        return dto;
+    }
+
+    public ProfesorHorarioResponseDTO toProfesorHorarioDto(Profesor profesor) {
+        ProfesorHorarioResponseDTO dto = new ProfesorHorarioResponseDTO();
+        dto.setNombre(profesor.getNombre());
+        dto.setProfesion(profesor.getProfesion());
+        dto.setAreas(profesor.getAreas());
         return dto;
     }
 

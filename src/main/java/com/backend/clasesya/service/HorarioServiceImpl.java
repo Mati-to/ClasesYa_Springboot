@@ -1,7 +1,9 @@
 package com.backend.clasesya.service;
 
+import com.backend.clasesya.dto.horario.HorarioConProfesorDTO;
 import com.backend.clasesya.dto.horario.HorarioCreateDTO;
 import com.backend.clasesya.dto.horario.HorarioResponseDTO;
+import com.backend.clasesya.dto.horario.HorarioUpdateDTO;
 import com.backend.clasesya.entity.Horario;
 import com.backend.clasesya.entity.Profesor;
 import com.backend.clasesya.exception.BusinessException;
@@ -31,11 +33,11 @@ public class HorarioServiceImpl implements IHorarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<HorarioResponseDTO> findAll() {
+    public List<HorarioConProfesorDTO> findAll() {
         List<Horario> horarios = repositoryHorario.findAll();
 
         return horarios.stream()
-                .map(mapper::toHorarioDto)
+                .map(mapper::toHorarioConProfesorDTO)
                 .toList();
     }
 
@@ -54,7 +56,10 @@ public class HorarioServiceImpl implements IHorarioService {
     @Override
     @Transactional(readOnly = true)
     public HorarioResponseDTO findById(Long id) {
-        return null;
+        Horario horario = repositoryHorario.findById(id)
+                .orElseThrow(() -> new NotFoundException("Horario", id));
+
+        return mapper.toHorarioDto(horario);
     }
 
     @Override
@@ -73,11 +78,23 @@ public class HorarioServiceImpl implements IHorarioService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
+    public HorarioResponseDTO update(HorarioUpdateDTO horarioDto, Long id) {
+        Horario horario = repositoryHorario.findById(id)
+                .orElseThrow(() -> new NotFoundException("Horario", id));
+        mapper.toUpdateHorario(horario, horarioDto);
+        return mapper.toHorarioDto(horario);
+    }
 
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        Horario horario = repositoryHorario.findById(id)
+                .orElseThrow(() -> new NotFoundException("Horario", id));
+        repositoryHorario.deleteById(horario.getId());
     }
 
 
+    // Validaciones - lógica de negocio
     private void validarChoqueHorario(HorarioCreateDTO dto, Long profesorId) {
         if (!dto.getHoraInicio().isBefore(dto.getHoraFin())) {
             throw new BusinessException("La hora de inicio debe ser antes de la hora de su término.");
