@@ -4,7 +4,7 @@ import com.backend.clasesya.entity.Area;
 
 import java.util.List;
 
-public class ProfesorHorarioResponseDTO {
+public class ProfesorResumenResponseDTO {
 
     private String nombre;
     private String profesion;

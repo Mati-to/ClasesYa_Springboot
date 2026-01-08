@@ -1,9 +1,5 @@
 package com.backend.clasesya.dto.horario;
 
-import com.backend.clasesya.dto.profesor.ProfesorHorarioResponseDTO;
-import com.backend.clasesya.dto.profesor.ProfesorResponseDTO;
-import com.backend.clasesya.entity.Profesor;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 

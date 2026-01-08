@@ -1,23 +1,23 @@
 package com.backend.clasesya.dto.horario;
 
-import com.backend.clasesya.dto.profesor.ProfesorHorarioResponseDTO;
+import com.backend.clasesya.dto.profesor.ProfesorResumenResponseDTO;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class HorarioConProfesorDTO {
 
-    private ProfesorHorarioResponseDTO profesor;
+    private ProfesorResumenResponseDTO profesor;
     private DayOfWeek diaDisponible;
     private LocalTime horaInicio;
     private LocalTime horaFin;
 
 
-    public ProfesorHorarioResponseDTO getProfesor() {
+    public ProfesorResumenResponseDTO getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(ProfesorHorarioResponseDTO profesor) {
+    public void setProfesor(ProfesorResumenResponseDTO profesor) {
         this.profesor = profesor;
     }
 
